@@ -40,8 +40,8 @@ Tests use Vitest and React Testing Library. `fetch` is mocked, so the suite does
 - **Vite + React + TypeScript.** The app is small, and Vite gives a fast dev server and a straightforward production build. TypeScript keeps the API user and the assigned role explicit.
 - **Functional components and hooks.** Screen state lives in `UserDirectory` (`useState` / `useMemo`). Loading, success, and error live in `useUsers`.
 - **`fetch`.** One GET is enough. A data library would add concepts this screen does not need.
-- **Tailwind CSS.** Layout and states follow the approved Figma frames: stacked on mobile and tablet, search beside the role filter and the list beside details from the `xl` (1280px) breakpoint up.
-- **Vitest + React Testing Library + jsdom.** Tests cover what a person sees: loaded rows, search (including trimmed whitespace), role filter, the empty status message, missing company or city, error/retry, and selection.
+- **Tailwind CSS.** Layout and states follow the approved Figma frames. The page stacks below the `lg` breakpoint (1024px). From there, search sits beside the role filter and the list sits beside details. Horizontal padding widens again at `xl` (1280px), which matches the desktop frame.
+- **Vitest + React Testing Library + jsdom.** Tests are grouped by user story. They cover loaded rows, search (including trimmed whitespace), role filter, the empty status message, missing or blank company and city, error/retry, selection, and the page landmarks.
 
 ## Architecture
 
@@ -66,11 +66,25 @@ const role = roles[index] ?? roles[0];
 
 `filterUsers` applies the name query and the role together. The name match is case-insensitive and ignores surrounding whitespace. Role matching is exact, so "Engineer" does not include "QA Engineer".
 
-Below 1280px the list and details stack, and choosing a person scrolls the details into view. That scroll is smooth unless reduced motion is requested, in which case the details are brought into view without animation. From the `xl` breakpoint up, the list scrolls on its own so the details panel stays beside it. A selected row uses a mint background, a teal accent bar, and a “SELECTED” label so the state is not color alone, and the button sets `aria-current="true"`. Keyboard focus uses a 2px blue ring.
+Below 1024px the list and details stack, and choosing a person scrolls the details into view. That scroll is smooth unless reduced motion is requested, in which case the details are brought into view without animation. From the `lg` breakpoint up, the list scrolls on its own so the details panel stays beside it. A selected row uses a mint background, a teal accent bar, and a “SELECTED” label so the state is not color alone, and the button sets `aria-current="true"`. Keyboard focus uses a 2px blue ring. Rows are buttons, so Enter and Space select them. The page has one `header`, the directory content is in `main`, and the detail panel is an `aside`.
 
-The empty list is announced as a status, and a visually hidden count (for example, “3 users found”) updates as the search or role filter changes. Company and city render as “N/A” when a record does not include them.
+While rows are showing, a visually hidden count (for example, “3 users found”) updates as the search or role filter changes. An empty list is announced once, through that status (“No users found”), and does not also raise a live “0 users found”. Company and city render as “N/A” when they are missing or an empty string.
 
 Selecting a row keeps that person in the details panel even if a later search hides them from the list. Retry calls `fetch` again and does not reload the page. A newer request aborts the previous one, so a slow response cannot overwrite fresher data.
+
+## User stories and where they are implemented
+
+| Story | Acceptance summary | Files / components | Tests |
+| --- | --- | --- | --- |
+| 1. Fetch and display directory | On mount, load `https://jsonplaceholder.typicode.com/users`. Role is `roles[id % roles.length]` for Engineer, Designer, Product Manager, and QA Engineer. The list shows name, email, and role, and the selected row is highlighted. | `src/api/users.ts`, `src/hooks/useUsers.ts`, `src/components/UserDirectory.tsx`, `src/components/UserList.tsx`, `src/components/UserListItem.tsx` | `Story 1: Fetch and display directory` |
+| 2. Async states | Show a loading status, an error message with Retry that fetches again without reloading the page, and “No users found” when the filters match nothing. | `src/hooks/useUsers.ts`, `src/components/StatusMessage.tsx`, `src/components/UserList.tsx` | `Story 2: Async states` |
+| 3. Real-time search | A labeled “Search by name” field filters as you type. Matching is case-insensitive and ignores surrounding whitespace. | `src/components/UserSearch.tsx`, `src/filterUsers.ts` | `Story 3: Real-time search` |
+| 4. Role filter | The dropdown offers All Roles, Engineer, Designer, Product Manager, and QA Engineer. It combines with search, and “Engineer” does not include “QA Engineer”. | `src/components/RoleFilter.tsx`, `src/filterUsers.ts`, `src/types.ts` | `Story 4: Role filter` |
+| 5. Inspect details | Choosing a person shows name, email, role, phone, company, and city. With nobody selected, the panel shows “Select a user from the list to view full details”. | `src/components/UserDetails.tsx`, `src/components/UserDirectory.tsx` | `Story 5: Inspect details` |
+| 6. Responsive layout and accessibility | Controls stay on top. List and details are side by side from `lg` (1024px) and stacked below that, including mobile. Controls have labels. Rows are buttons, so Enter and Space activate them. The page uses one `header`, a `main`, and an `aside` for details. | `src/components/UserDirectory.tsx`, `src/components/UserDetails.tsx`, `src/components/UserListItem.tsx`, `src/components/UserSearch.tsx`, `src/components/RoleFilter.tsx` | `Story 6: Responsive layout and accessibility` |
+| 7. Design | The UI follows the Figma frames (desktop 1280, tablet 768, mobile 390) and the shared color, spacing, and type tokens. Focus, selected, hover, loading, error, and empty states are visible. | `tailwind.config.js`, `src/index.css`, `src/components/` | Screen tests cover the states. Layout at 390, 768, 1024, and 1280 was checked in the browser. |
+| 8. Safe with incomplete data | Missing or empty-string company and city render “N/A”. A filtered list announces a count while rows remain, and announces the empty state once. | `src/api/users.ts`, `src/components/UserDetails.tsx`, `src/components/UserList.tsx` | `Story 8: Safe with incomplete data` |
+| 9. Quality and delivery | `npm test`, `npm run lint`, and `npm run build` pass. This README keeps the AI disclosure and the scalability notes. GitHub Pages is configured, and `node_modules` is not committed. | `package.json`, `README.md`, `.github/workflows/pages.yml`, `.gitignore` | `npm test`, `npm run lint`, `npm run build` |
 
 ## Tradeoffs
 
