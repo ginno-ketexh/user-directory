@@ -174,8 +174,68 @@ describe('User Directory', () => {
     expect(within(details).getByText('Deckow-Crist')).toBeInTheDocument()
     expect(within(details).getByText('Wisokyburgh')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /ervin howell/i })).toHaveAttribute(
-      'aria-pressed',
+      'aria-current',
       'true',
     )
+  })
+
+  it('trims surrounding whitespace when searching by name', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(jsonResponse(users)))
+    const user = userEvent.setup()
+
+    render(<App />)
+    await screen.findByRole('list', { name: 'Users' })
+
+    await user.type(screen.getByLabelText('Search by name'), '  eRvIn  ')
+
+    const list = screen.getByRole('list', { name: 'Users' })
+    expect(within(list).getByText('Ervin Howell')).toBeInTheDocument()
+    expect(within(list).queryByText('Leanne Graham')).not.toBeInTheDocument()
+    expect(within(list).queryByText('Clementine Bauch')).not.toBeInTheDocument()
+    expect(within(list).queryByText('Patricia Lebsack')).not.toBeInTheDocument()
+    expect(screen.getByText('1 user found')).toBeInTheDocument()
+  })
+
+  it('renders N/A when a user is missing company and address', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        jsonResponse([
+          { nope: true },
+          {
+            id: 2,
+            name: 'Ervin Howell',
+            email: 'Shanna@melissa.tv',
+            phone: '010-692-6593 x09125',
+          },
+        ]),
+      ),
+    )
+    const user = userEvent.setup()
+
+    render(<App />)
+
+    await user.click(await screen.findByRole('button', { name: /ervin howell/i }))
+
+    const details = screen.getByRole('region', { name: 'User details' })
+    expect(within(details).getByText('Ervin Howell')).toBeInTheDocument()
+    expect(within(details).getByText('Shanna@melissa.tv')).toBeInTheDocument()
+    expect(within(details).getByText('010-692-6593 x09125')).toBeInTheDocument()
+    expect(within(details).getAllByText('N/A')).toHaveLength(2)
+  })
+
+  it('exposes the empty state as a status', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(jsonResponse(users)))
+    const user = userEvent.setup()
+
+    render(<App />)
+    await screen.findByRole('list', { name: 'Users' })
+
+    await user.type(screen.getByLabelText('Search by name'), 'nobody')
+
+    const status = screen.getByRole('status')
+    expect(status).toHaveTextContent('No users found')
+    expect(status).toHaveTextContent('Try a different name or role filter.')
+    expect(screen.getByText('0 users found')).toBeInTheDocument()
   })
 })

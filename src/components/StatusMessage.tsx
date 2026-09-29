@@ -2,8 +2,8 @@ const skeletonRows = [0, 1, 2, 3]
 
 export function LoadingState() {
   return (
-    <div role="status" className="flex flex-col items-start gap-3.5 p-4">
-      <div aria-hidden="true" className="flex flex-col gap-3.5">
+    <div role="status" className="flex flex-col items-start gap-3.5 p-4 motion-reduce:animate-none">
+      <div aria-hidden="true" className="flex flex-col gap-3.5 motion-reduce:animate-none">
         {skeletonRows.map((row) => (
           <div key={row} className="flex flex-col gap-2">
             <span className="h-3.5 w-40 rounded-md bg-skeleton" />

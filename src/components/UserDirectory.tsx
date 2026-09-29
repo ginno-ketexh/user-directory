@@ -27,7 +27,11 @@ export function UserDirectory() {
       return
     }
 
-    detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    detailsRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    })
   }, [selectedId])
 
   const filteredUsers = useMemo(
