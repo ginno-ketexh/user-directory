@@ -162,7 +162,7 @@ describe('User Directory', () => {
     await screen.findByRole('list', { name: 'Users' })
 
     expect(screen.getByText('Select a user')).toBeInTheDocument()
-    expect(screen.getByText('Choose someone from the list to see their details.')).toBeInTheDocument()
+    expect(screen.getByText('Select a user from the list to view full details')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: /ervin howell/i }))
 

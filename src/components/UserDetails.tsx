@@ -36,7 +36,7 @@ export function UserDetails({ user, sectionRef }: UserDetailsProps) {
         <div className="flex flex-col items-center gap-2 px-8 py-8 text-center">
           <p className="text-base font-semibold leading-[normal] text-ink">Select a user</p>
           <p className="text-[13px] leading-[normal] text-muted">
-            Choose someone from the list to see their details.
+            Select a user from the list to view full details
           </p>
         </div>
       )}
