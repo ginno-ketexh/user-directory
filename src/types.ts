@@ -14,7 +14,7 @@ export type ApiUser = {
   name: string
   username: string
   email: string
-  address: {
+  address?: {
     street: string
     suite: string
     city: string
@@ -26,7 +26,7 @@ export type ApiUser = {
   }
   phone: string
   website: string
-  company: {
+  company?: {
     name: string
     catchPhrase: string
     bs: string

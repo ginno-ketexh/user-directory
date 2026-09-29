@@ -12,7 +12,7 @@ export function UserListItem({ user, selected, onSelect }: UserListItemProps) {
       <button
         type="button"
         onClick={() => onSelect(user)}
-        aria-pressed={selected}
+        aria-current={selected ? 'true' : undefined}
         className={`flex w-full items-center py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus ${
           selected ? 'justify-between bg-selected pl-3 pr-4' : 'bg-white px-4 hover:bg-canvas'
         }`}

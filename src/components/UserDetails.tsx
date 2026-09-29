@@ -28,9 +28,9 @@ export function UserDetails({ user, sectionRef }: UserDetailsProps) {
             <Detail label="Email" value={user.email} />
             <Detail label="Role" value={user.role} />
             <Detail label="Phone" value={user.phone} />
-            <Detail label="Company" value={user.company.name} />
+            <Detail label="Company" value={user.company?.name ?? 'N/A'} />
           </div>
-          <Detail label="City" value={user.address.city} />
+          <Detail label="City" value={user.address?.city ?? 'N/A'} />
         </dl>
       ) : (
         <div className="flex flex-col items-center gap-2 px-8 py-8 text-center">
