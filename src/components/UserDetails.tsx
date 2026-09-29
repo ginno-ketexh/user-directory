@@ -34,8 +34,8 @@ export function UserDetails({ user, sectionRef }: UserDetailsProps) {
         </dl>
       ) : (
         <div className="flex flex-col items-center gap-2 px-8 py-8 text-center">
-          <p className="text-base font-semibold leading-normal text-ink">Select a user</p>
-          <p className="text-[13px] leading-normal text-muted">
+          <p className="text-base font-semibold leading-[normal] text-ink">Select a user</p>
+          <p className="text-[13px] leading-[normal] text-muted">
             Choose someone from the list to see their details.
           </p>
         </div>
@@ -53,12 +53,12 @@ type DetailProps = {
 function Detail({ label, value, emphasize = false }: DetailProps) {
   return (
     <div className="flex min-w-0 flex-col gap-1">
-      <dt className="text-[11px] font-semibold uppercase leading-normal text-faint">{label}</dt>
+      <dt className="text-[11px] font-semibold uppercase leading-[normal] text-faint">{label}</dt>
       <dd
         className={
           emphasize
-            ? 'break-words text-lg font-bold leading-normal text-ink'
-            : 'break-words text-sm leading-normal text-ink'
+            ? 'break-words text-lg font-bold leading-[normal] text-ink'
+            : 'break-words text-sm leading-[normal] text-ink'
         }
       >
         {value}

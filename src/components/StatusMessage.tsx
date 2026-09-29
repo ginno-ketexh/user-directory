@@ -12,7 +12,7 @@ export function LoadingState() {
           </div>
         ))}
       </div>
-      <p className="text-[13px] font-medium leading-normal text-muted">Loading users…</p>
+      <p className="text-[13px] font-medium leading-[normal] text-muted">Loading users…</p>
     </div>
   )
 }
@@ -24,8 +24,8 @@ type ErrorStateProps = {
 export function ErrorState({ onRetry }: ErrorStateProps) {
   return (
     <div role="alert" className="flex flex-col items-center gap-3 px-6 py-6 text-center">
-      <p className="text-base font-semibold leading-normal text-danger">Couldn’t load users</p>
-      <p className="text-[13px] leading-normal text-muted">Check your connection, then try again.</p>
+      <p className="text-base font-semibold leading-[normal] text-danger">Couldn’t load users</p>
+      <p className="text-[13px] leading-[normal] text-muted">Check your connection, then try again.</p>
       <button
         type="button"
         onClick={onRetry}

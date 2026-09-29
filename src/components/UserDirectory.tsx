@@ -41,8 +41,8 @@ export function UserDirectory() {
     <div className="min-h-screen bg-canvas text-ink">
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-4 px-4 pb-8 pt-6 md:gap-6 md:px-6 md:pb-12 md:pt-10 xl:px-12">
         <header className="flex flex-col gap-1.5 md:gap-2">
-          <h1 className="text-[22px] font-bold leading-normal md:text-[28px]">User Directory</h1>
-          <p className="max-w-2xl text-[13px] leading-normal text-muted md:text-sm">
+          <h1 className="text-[22px] font-bold leading-[normal] md:text-[28px]">User Directory</h1>
+          <p className="max-w-2xl text-[13px] leading-[normal] text-muted md:text-sm">
             Browse people from the directory. Search by name and filter by role.
           </p>
         </header>
