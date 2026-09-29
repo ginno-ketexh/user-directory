@@ -74,6 +74,8 @@ Selecting a row keeps that person in the details panel even if a later search hi
 
 ## User stories and where they are implemented
 
+The full wording, acceptance criteria, and current status of each story are in [docs/USER_STORIES.md](docs/USER_STORIES.md). The table below is the short map.
+
 | Story | Acceptance summary | Files / components | Tests |
 | --- | --- | --- | --- |
 | 1. Fetch and display directory | On mount, load `https://jsonplaceholder.typicode.com/users`. Role is `roles[id % roles.length]` for Engineer, Designer, Product Manager, and QA Engineer. The list shows name, email, and role, and the selected row is highlighted. | `src/api/users.ts`, `src/hooks/useUsers.ts`, `src/components/UserDirectory.tsx`, `src/components/UserList.tsx`, `src/components/UserListItem.tsx` | `Story 1: Fetch and display directory` |
@@ -84,7 +86,7 @@ Selecting a row keeps that person in the details panel even if a later search hi
 | 6. Responsive layout and accessibility | Controls stay on top. List and details are side by side from `lg` (1024px) and stacked below that, including mobile. Controls have labels. Rows are buttons, so Enter and Space activate them. The page uses one `header`, a `main`, and an `aside` for details. | `src/components/UserDirectory.tsx`, `src/components/UserDetails.tsx`, `src/components/UserListItem.tsx`, `src/components/UserSearch.tsx`, `src/components/RoleFilter.tsx` | `Story 6: Responsive layout and accessibility` |
 | 7. Design | The UI follows the Figma frames (desktop 1280, tablet 768, mobile 390) and the shared color, spacing, and type tokens. Focus, selected, hover, loading, error, and empty states are visible. | `tailwind.config.js`, `src/index.css`, `src/components/` | Screen tests cover the states. Layout at 390, 768, 1024, and 1280 was checked in the browser. |
 | 8. Safe with incomplete data | Missing or empty-string company and city render “N/A”. A filtered list announces a count while rows remain, and announces the empty state once. | `src/api/users.ts`, `src/components/UserDetails.tsx`, `src/components/UserList.tsx` | `Story 8: Safe with incomplete data` |
-| 9. Quality and delivery | `npm test`, `npm run lint`, and `npm run build` pass. This README keeps the AI disclosure and the scalability notes. GitHub Pages is configured, and `node_modules` is not committed. | `package.json`, `README.md`, `.github/workflows/pages.yml`, `.gitignore` | `npm test`, `npm run lint`, `npm run build` |
+| 9. Quality and delivery | `npm test`, `npm run lint`, and `npm run build` pass. This README keeps the AI disclosure and the scalability notes. GitHub Pages is configured, and `node_modules` is not committed. | `package.json`, `README.md`, `docs/USER_STORIES.md`, `.github/workflows/pages.yml`, `.gitignore` | `npm test`, `npm run lint`, `npm run build` |
 
 ## Tradeoffs
 
