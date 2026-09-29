@@ -22,7 +22,8 @@ export function UserDirectory() {
       return
     }
 
-    const isNarrow = window.matchMedia('(max-width: 1279px)').matches
+    // Stacked below the lg breakpoint (1024px); side by side from there up.
+    const isNarrow = window.matchMedia('(max-width: 1023px)').matches
     if (!isNarrow) {
       return
     }
@@ -52,12 +53,12 @@ export function UserDirectory() {
         </header>
 
         <main className="flex flex-col gap-4 md:gap-6">
-          <div className="flex flex-col gap-3 rounded-xl border border-line bg-white p-4 shadow-card xl:flex-row xl:items-start xl:gap-4">
+          <div className="flex flex-col gap-3 rounded-xl border border-line bg-white p-4 shadow-card lg:flex-row lg:items-start lg:gap-4">
             <UserSearch value={search} onChange={setSearch} />
             <RoleFilterControl value={role} onChange={setRole} />
           </div>
 
-          <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,497fr)_minmax(0,671fr)]">
+          <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,497fr)_minmax(0,671fr)]">
             <section aria-labelledby="users-heading" className={`min-w-0 ${cardClass}`}>
               <div className="border-b border-line px-4 pb-2.5 pt-3.5">
                 <h2 id="users-heading" className="text-[11px] font-bold uppercase text-faint">

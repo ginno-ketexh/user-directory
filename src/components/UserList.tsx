@@ -33,7 +33,7 @@ export function UserList({ users, selectedId, onSelect }: UserListProps) {
   return (
     <>
       {count}
-      <ul aria-label="Users" className="divide-y divide-line xl:max-h-[32rem] xl:overflow-y-auto">
+      <ul aria-label="Users" className="divide-y divide-line lg:max-h-[32rem] lg:overflow-y-auto">
         {users.map((user) => (
           <UserListItem
             key={user.id}
