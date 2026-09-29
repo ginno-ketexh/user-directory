@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { filterUsers } from '../filterUsers.ts'
 import { useUsers } from '../hooks/useUsers.ts'
 import type { RoleFilter } from '../types.ts'
@@ -13,6 +13,20 @@ export function UserDirectory() {
   const [search, setSearch] = useState('')
   const [role, setRole] = useState<RoleFilter>('all')
   const [selectedId, setSelectedId] = useState<number | null>(null)
+  const detailsRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (selectedId == null || typeof window.matchMedia !== 'function') {
+      return
+    }
+
+    const isNarrow = window.matchMedia('(max-width: 1023px)').matches
+    if (!isNarrow) {
+      return
+    }
+
+    detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [selectedId])
 
   const filteredUsers = useMemo(
     () => filterUsers(users, { search, role }),
@@ -69,7 +83,7 @@ export function UserDirectory() {
             ) : null}
           </section>
 
-          <UserDetails user={selectedUser} />
+          <UserDetails user={selectedUser} sectionRef={detailsRef} />
         </div>
       </main>
     </div>

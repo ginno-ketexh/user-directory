@@ -61,6 +61,8 @@ const role = roles[user.id % roles.length];
 
 `filterUsers` applies the name query and the role together. The name match is case-insensitive and ignores surrounding whitespace. Role matching is exact, so "Engineer" does not include "QA Engineer".
 
+On a narrow screen the list and details stack, and choosing a person scrolls the details into view. From the `lg` breakpoint up, the list scrolls on its own so the details panel stays beside it.
+
 Selecting a row keeps that person in the details panel even if a later search hides them from the list. Retry calls `fetch` again and does not reload the page. A newer request aborts the previous one, so a slow response cannot overwrite fresher data.
 
 ## Tradeoffs

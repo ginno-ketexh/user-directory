@@ -13,7 +13,7 @@ export function UserList({ users, selectedId, onSelect }: UserListProps) {
   }
 
   return (
-    <ul aria-label="Users" className="max-h-[32rem] divide-y divide-stone-200 overflow-y-auto">
+    <ul aria-label="Users" className="divide-y divide-stone-200 lg:max-h-[32rem] lg:overflow-y-auto">
       {users.map((user) => (
         <UserListItem
           key={user.id}

@@ -1,14 +1,17 @@
+import type { Ref } from 'react'
 import type { DirectoryUser } from '../types.ts'
 
 type UserDetailsProps = {
   user: DirectoryUser | null
+  sectionRef?: Ref<HTMLElement>
 }
 
-export function UserDetails({ user }: UserDetailsProps) {
+export function UserDetails({ user, sectionRef }: UserDetailsProps) {
   return (
     <section
+      ref={sectionRef}
       aria-labelledby="user-details-heading"
-      className="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm"
+      className="scroll-mt-4 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm"
     >
       <div className="border-b border-stone-200 px-4 py-3">
         <h2
