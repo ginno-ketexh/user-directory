@@ -2,6 +2,8 @@
 
 A small React directory for browsing people from the [JSONPlaceholder Users API](https://jsonplaceholder.typicode.com/users). Search by name, filter by role, and select a person to see their details.
 
+**Live demo:** https://ginno-ketexh.github.io/user-directory/
+
 ## Setup
 
 Requirements: Node.js 20+ and npm.
@@ -16,12 +18,14 @@ npm install
 npm run dev
 ```
 
-Vite prints a local URL (usually `http://localhost:5173`). A production build is:
+Vite prints a local URL (usually `http://localhost:5173/user-directory/`). A production build is:
 
 ```bash
 npm run build
 npm run preview
 ```
+
+Preview uses the same `/user-directory/` base (usually `http://localhost:4173/user-directory/`).
 
 ## Run tests
 
