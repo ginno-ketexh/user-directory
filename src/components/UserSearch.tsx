@@ -3,10 +3,13 @@ type UserSearchProps = {
   onChange: (value: string) => void
 }
 
+const controlClass =
+  'w-full rounded-lg border border-line bg-white px-3 py-[11px] text-sm leading-normal text-ink outline-none placeholder:text-faint focus-visible:border-focus focus-visible:shadow-focus'
+
 export function UserSearch({ value, onChange }: UserSearchProps) {
   return (
-    <div>
-      <label htmlFor="user-search" className="mb-1.5 block text-sm font-medium text-stone-700">
+    <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+      <label htmlFor="user-search" className="text-xs font-medium leading-normal text-muted">
         Search by name
       </label>
       <input
@@ -14,9 +17,9 @@ export function UserSearch({ value, onChange }: UserSearchProps) {
         type="search"
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="Search users..."
+        placeholder="Search users…"
         autoComplete="off"
-        className="w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 shadow-sm placeholder:text-stone-400 focus-visible:border-teal-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
+        className={controlClass}
       />
     </div>
   )

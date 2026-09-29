@@ -8,8 +8,10 @@ import { UserDetails } from './UserDetails.tsx'
 import { UserList } from './UserList.tsx'
 import { UserSearch } from './UserSearch.tsx'
 
+const cardClass = 'overflow-hidden rounded-xl border border-line bg-white shadow-card'
+
 export function UserDirectory() {
-  const { users, status, errorMessage, retry } = useUsers()
+  const { users, status, retry } = useUsers()
   const [search, setSearch] = useState('')
   const [role, setRole] = useState<RoleFilter>('all')
   const [selectedId, setSelectedId] = useState<number | null>(null)
@@ -20,7 +22,7 @@ export function UserDirectory() {
       return
     }
 
-    const isNarrow = window.matchMedia('(max-width: 1023px)').matches
+    const isNarrow = window.matchMedia('(max-width: 1279px)').matches
     if (!isNarrow) {
       return
     }
@@ -36,39 +38,30 @@ export function UserDirectory() {
   const selectedUser = users.find((user) => user.id === selectedId) ?? null
 
   return (
-    <div className="min-h-screen bg-stone-100 text-stone-900">
-      <header className="border-b border-stone-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6">
-          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">User Directory</h1>
-          <p className="mt-1 max-w-2xl text-sm text-stone-600">
+    <div className="min-h-screen bg-canvas text-ink">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-4 px-4 pb-8 pt-6 md:gap-6 md:px-6 md:pb-12 md:pt-10 xl:px-12">
+        <header className="flex flex-col gap-1.5 md:gap-2">
+          <h1 className="text-[22px] font-bold leading-normal md:text-[28px]">User Directory</h1>
+          <p className="max-w-2xl text-[13px] leading-normal text-muted md:text-sm">
             Browse people from the directory. Search by name and filter by role.
           </p>
-        </div>
-      </header>
+        </header>
 
-      <main className="mx-auto grid max-w-6xl gap-4 px-4 py-4 sm:px-6 sm:py-6">
-        <div className="grid gap-4 rounded-xl border border-stone-200 bg-white p-4 shadow-sm sm:grid-cols-[minmax(0,1fr)_220px] sm:items-end">
+        <div className="flex flex-col gap-3 rounded-xl border border-line bg-white p-4 shadow-card xl:flex-row xl:items-start xl:gap-4">
           <UserSearch value={search} onChange={setSearch} />
           <RoleFilterControl value={role} onChange={setRole} />
         </div>
 
-        <div className="grid items-start gap-4 lg:grid-cols-2">
-          <section
-            aria-labelledby="users-heading"
-            className="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm"
-          >
-            <div className="border-b border-stone-200 px-4 py-3">
-              <h2
-                id="users-heading"
-                className="text-sm font-semibold uppercase tracking-wide text-stone-500"
-              >
+        <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,497fr)_minmax(0,671fr)]">
+          <section aria-labelledby="users-heading" className={`min-w-0 ${cardClass}`}>
+            <div className="border-b border-line px-4 pb-2.5 pt-3.5">
+              <h2 id="users-heading" className="text-[11px] font-bold uppercase text-faint">
                 Users
               </h2>
             </div>
             {status === 'loading' ? <LoadingState /> : null}
             {status === 'error' ? (
               <ErrorState
-                message={errorMessage ?? 'Something went wrong while loading users.'}
                 onRetry={() => {
                   void retry()
                 }}
@@ -85,7 +78,7 @@ export function UserDirectory() {
 
           <UserDetails user={selectedUser} sectionRef={detailsRef} />
         </div>
-      </main>
+      </div>
     </div>
   )
 }

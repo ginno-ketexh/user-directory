@@ -9,11 +9,16 @@ type UserListProps = {
 
 export function UserList({ users, selectedId, onSelect }: UserListProps) {
   if (users.length === 0) {
-    return <p className="px-4 py-10 text-sm text-stone-600">No users found.</p>
+    return (
+      <div className="flex flex-col items-center gap-2 px-8 py-8 text-center">
+        <p className="text-base font-semibold leading-normal text-ink">No users found</p>
+        <p className="text-[13px] leading-normal text-muted">Try a different name or role filter.</p>
+      </div>
+    )
   }
 
   return (
-    <ul aria-label="Users" className="divide-y divide-stone-200 lg:max-h-[32rem] lg:overflow-y-auto">
+    <ul aria-label="Users" className="divide-y divide-line xl:max-h-[32rem] xl:overflow-y-auto">
       {users.map((user) => (
         <UserListItem
           key={user.id}

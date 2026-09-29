@@ -13,20 +13,23 @@ export function UserListItem({ user, selected, onSelect }: UserListItemProps) {
         type="button"
         onClick={() => onSelect(user)}
         aria-pressed={selected}
-        className={`flex w-full flex-col gap-0.5 px-4 py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-teal-700 ${
-          selected ? 'bg-teal-50' : 'bg-white hover:bg-stone-50'
+        className={`flex w-full items-center py-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-focus ${
+          selected ? 'justify-between bg-selected pl-3 pr-4' : 'bg-white px-4 hover:bg-canvas'
         }`}
       >
-        <span className="flex items-baseline justify-between gap-3">
-          <span className="font-medium text-stone-900">{user.name}</span>
-          {selected ? (
-            <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-teal-800">
-              Selected
-            </span>
-          ) : null}
+        {selected ? (
+          <span aria-hidden="true" className="h-12 w-1 shrink-0 rounded-[2px] bg-accent-bar" />
+        ) : null}
+        <span className={`flex min-w-0 flex-col gap-0.5 ${selected ? 'max-w-[70%]' : ''}`}>
+          <span className="text-sm font-semibold leading-normal text-ink">{user.name}</span>
+          <span className="text-xs font-medium leading-normal text-accent">{user.role}</span>
+          <span className="break-words text-xs leading-normal text-muted">{user.email}</span>
         </span>
-        <span className="text-sm text-teal-800">{user.role}</span>
-        <span className="text-sm text-stone-500">{user.email}</span>
+        {selected ? (
+          <span aria-hidden="true" className="shrink-0 text-[11px] font-bold leading-normal text-accent">
+            SELECTED
+          </span>
+        ) : null}
       </button>
     </li>
   )
