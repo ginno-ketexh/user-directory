@@ -28,9 +28,9 @@ export function UserDetails({ user, sectionRef }: UserDetailsProps) {
             <Detail label="Email" value={user.email} />
             <Detail label="Role" value={user.role} />
             <Detail label="Phone" value={user.phone} />
-            <Detail label="Company" value={user.company?.name ?? 'N/A'} />
+            <Detail label="Company" value={valueOrNA(user.company?.name)} />
           </div>
-          <Detail label="City" value={user.address?.city ?? 'N/A'} />
+          <Detail label="City" value={valueOrNA(user.address?.city)} />
         </dl>
       ) : (
         <div className="flex flex-col items-center gap-2 px-8 py-8 text-center">
@@ -42,6 +42,14 @@ export function UserDetails({ user, sectionRef }: UserDetailsProps) {
       )}
     </aside>
   )
+}
+
+function valueOrNA(value: string | undefined): string {
+  if (value == null || value === '') {
+    return 'N/A'
+  }
+
+  return value
 }
 
 type DetailProps = {

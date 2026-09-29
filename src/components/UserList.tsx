@@ -12,16 +12,13 @@ function resultsLabel(count: number): string {
 }
 
 export function UserList({ users, selectedId, onSelect }: UserListProps) {
-  const count = (
-    <p className="sr-only" aria-live="polite" aria-atomic="true">
-      {resultsLabel(users.length)}
-    </p>
-  )
-
   if (users.length === 0) {
     return (
       <>
-        {count}
+        {/* Not live: the status below is the only empty-state announcement. */}
+        <p className="sr-only" aria-hidden="true">
+          {resultsLabel(0)}
+        </p>
         <div role="status" className="flex flex-col items-center gap-2 px-8 py-8 text-center">
           <p className="text-base font-semibold leading-[normal] text-ink">No users found</p>
           <p className="text-[13px] leading-[normal] text-muted">Try a different name or role filter.</p>
@@ -32,7 +29,9 @@ export function UserList({ users, selectedId, onSelect }: UserListProps) {
 
   return (
     <>
-      {count}
+      <p className="sr-only" aria-live="polite" aria-atomic="true">
+        {resultsLabel(users.length)}
+      </p>
       <ul aria-label="Users" className="divide-y divide-line lg:max-h-[32rem] lg:overflow-y-auto">
         {users.map((user) => (
           <UserListItem
