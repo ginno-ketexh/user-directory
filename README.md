@@ -36,7 +36,7 @@ Tests use Vitest and React Testing Library. `fetch` is mocked, so the suite does
 - **Vite + React + TypeScript.** The app is small, and Vite gives a fast dev server and a straightforward production build. TypeScript keeps the API user and the assigned role explicit.
 - **Functional components and hooks.** Screen state lives in `UserDirectory` (`useState` / `useMemo`). Loading, success, and error live in `useUsers`.
 - **`fetch`.** One GET is enough. A data library would add concepts this screen does not need.
-- **Tailwind CSS.** Layout and states are styled with utilities, including a stacked layout on small screens and two columns from the `lg` breakpoint up.
+- **Tailwind CSS.** Layout and states follow the approved Figma frames: stacked on mobile and tablet, search beside the role filter and the list beside details from the `xl` (1280px) breakpoint up.
 - **Vitest + React Testing Library + jsdom.** Tests cover what a person sees: loaded rows, search, role filter, the empty message, error/retry, and selection.
 
 ## Architecture
@@ -61,7 +61,7 @@ const role = roles[user.id % roles.length];
 
 `filterUsers` applies the name query and the role together. The name match is case-insensitive and ignores surrounding whitespace. Role matching is exact, so "Engineer" does not include "QA Engineer".
 
-On a narrow screen the list and details stack, and choosing a person scrolls the details into view. From the `lg` breakpoint up, the list scrolls on its own so the details panel stays beside it.
+Below 1280px the list and details stack, and choosing a person scrolls the details into view. From the `xl` breakpoint up, the list scrolls on its own so the details panel stays beside it. A selected row uses a mint background, a teal accent bar, and a “SELECTED” label so the state is not color alone. Keyboard focus uses a 2px blue ring.
 
 Selecting a row keeps that person in the details panel even if a later search hides them from the list. Retry calls `fetch` again and does not reload the page. A newer request aborts the previous one, so a slow response cannot overwrite fresher data.
 

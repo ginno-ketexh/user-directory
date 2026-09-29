@@ -129,7 +129,8 @@ describe('User Directory', () => {
 
     await user.type(screen.getByLabelText('Search by name'), 'nobody')
 
-    expect(screen.getByText('No users found.')).toBeInTheDocument()
+    expect(screen.getByText('No users found')).toBeInTheDocument()
+    expect(screen.getByText('Try a different name or role filter.')).toBeInTheDocument()
     expect(screen.queryByRole('list', { name: 'Users' })).not.toBeInTheDocument()
   })
 
@@ -144,8 +145,8 @@ describe('User Directory', () => {
     render(<App />)
 
     const alert = await screen.findByRole('alert')
-    expect(alert).toHaveTextContent(/could not load users/i)
-    expect(alert).toHaveTextContent(/status 503/i)
+    expect(alert).toHaveTextContent(/couldn’t load users/i)
+    expect(alert).toHaveTextContent(/check your connection, then try again/i)
 
     await user.click(screen.getByRole('button', { name: 'Retry' }))
 
@@ -160,7 +161,8 @@ describe('User Directory', () => {
     render(<App />)
     await screen.findByRole('list', { name: 'Users' })
 
-    expect(screen.getByText('Select a user to see their details.')).toBeInTheDocument()
+    expect(screen.getByText('Select a user')).toBeInTheDocument()
+    expect(screen.getByText('Choose someone from the list to see their details.')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: /ervin howell/i }))
 

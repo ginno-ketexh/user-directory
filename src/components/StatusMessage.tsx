@@ -1,33 +1,35 @@
-type LoadingStateProps = {
-  label?: string
-}
+const skeletonRows = [0, 1, 2, 3]
 
-export function LoadingState({ label = 'Loading users…' }: LoadingStateProps) {
+export function LoadingState() {
   return (
-    <div role="status" className="flex items-center gap-3 px-4 py-10 text-sm text-stone-600">
-      <span
-        aria-hidden="true"
-        className="h-4 w-4 animate-spin rounded-full border-2 border-stone-300 border-t-teal-700"
-      />
-      {label}
+    <div role="status" className="flex flex-col items-start gap-3.5 p-4">
+      <div aria-hidden="true" className="flex flex-col gap-3.5">
+        {skeletonRows.map((row) => (
+          <div key={row} className="flex flex-col gap-2">
+            <span className="h-3.5 w-40 rounded-md bg-skeleton" />
+            <span className="h-3 w-[90px] rounded-md bg-skeleton" />
+            <span className="h-3 w-[200px] rounded-md bg-skeleton" />
+          </div>
+        ))}
+      </div>
+      <p className="text-[13px] font-medium leading-[normal] text-muted">Loading users…</p>
     </div>
   )
 }
 
 type ErrorStateProps = {
-  message: string
   onRetry: () => void
 }
 
-export function ErrorState({ message, onRetry }: ErrorStateProps) {
+export function ErrorState({ onRetry }: ErrorStateProps) {
   return (
-    <div role="alert" className="px-4 py-8">
-      <p className="font-medium text-stone-900">Could not load users</p>
-      <p className="mt-1 text-sm text-stone-600">{message}</p>
+    <div role="alert" className="flex flex-col items-center gap-3 px-6 py-6 text-center">
+      <p className="text-base font-semibold leading-[normal] text-danger">Couldn’t load users</p>
+      <p className="text-[13px] leading-[normal] text-muted">Check your connection, then try again.</p>
       <button
         type="button"
         onClick={onRetry}
-        className="mt-4 rounded-lg bg-teal-700 px-3 py-2 text-sm font-medium text-white hover:bg-teal-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2"
+        className="rounded-lg bg-ink px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#1f2937] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2"
       >
         Retry
       </button>
