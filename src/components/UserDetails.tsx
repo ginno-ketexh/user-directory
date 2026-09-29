@@ -10,7 +10,7 @@ const cardClass = 'overflow-hidden rounded-xl border border-line bg-white shadow
 
 export function UserDetails({ user, sectionRef }: UserDetailsProps) {
   return (
-    <section
+    <aside
       ref={sectionRef}
       aria-labelledby="user-details-heading"
       className={`min-w-0 scroll-mt-4 ${cardClass}`}
@@ -40,7 +40,7 @@ export function UserDetails({ user, sectionRef }: UserDetailsProps) {
           </p>
         </div>
       )}
-    </section>
+    </aside>
   )
 }
 

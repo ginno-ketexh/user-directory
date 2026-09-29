@@ -166,7 +166,7 @@ describe('User Directory', () => {
 
     await user.click(screen.getByRole('button', { name: /ervin howell/i }))
 
-    const details = screen.getByRole('region', { name: 'User details' })
+    const details = screen.getByRole('complementary', { name: 'User details' })
     expect(within(details).getByText('Ervin Howell')).toBeInTheDocument()
     expect(within(details).getByText('Shanna@melissa.tv')).toBeInTheDocument()
     expect(within(details).getByText('Product Manager')).toBeInTheDocument()
@@ -217,7 +217,7 @@ describe('User Directory', () => {
 
     await user.click(await screen.findByRole('button', { name: /ervin howell/i }))
 
-    const details = screen.getByRole('region', { name: 'User details' })
+    const details = screen.getByRole('complementary', { name: 'User details' })
     expect(within(details).getByText('Ervin Howell')).toBeInTheDocument()
     expect(within(details).getByText('Shanna@melissa.tv')).toBeInTheDocument()
     expect(within(details).getByText('010-692-6593 x09125')).toBeInTheDocument()

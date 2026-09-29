@@ -51,37 +51,39 @@ export function UserDirectory() {
           </p>
         </header>
 
-        <div className="flex flex-col gap-3 rounded-xl border border-line bg-white p-4 shadow-card xl:flex-row xl:items-start xl:gap-4">
-          <UserSearch value={search} onChange={setSearch} />
-          <RoleFilterControl value={role} onChange={setRole} />
-        </div>
+        <main className="flex flex-col gap-4 md:gap-6">
+          <div className="flex flex-col gap-3 rounded-xl border border-line bg-white p-4 shadow-card xl:flex-row xl:items-start xl:gap-4">
+            <UserSearch value={search} onChange={setSearch} />
+            <RoleFilterControl value={role} onChange={setRole} />
+          </div>
 
-        <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,497fr)_minmax(0,671fr)]">
-          <section aria-labelledby="users-heading" className={`min-w-0 ${cardClass}`}>
-            <div className="border-b border-line px-4 pb-2.5 pt-3.5">
-              <h2 id="users-heading" className="text-[11px] font-bold uppercase text-faint">
-                Users
-              </h2>
-            </div>
-            {status === 'loading' ? <LoadingState /> : null}
-            {status === 'error' ? (
-              <ErrorState
-                onRetry={() => {
-                  void retry()
-                }}
-              />
-            ) : null}
-            {status === 'success' ? (
-              <UserList
-                users={filteredUsers}
-                selectedId={selectedId}
-                onSelect={(user) => setSelectedId(user.id)}
-              />
-            ) : null}
-          </section>
+          <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,497fr)_minmax(0,671fr)]">
+            <section aria-labelledby="users-heading" className={`min-w-0 ${cardClass}`}>
+              <div className="border-b border-line px-4 pb-2.5 pt-3.5">
+                <h2 id="users-heading" className="text-[11px] font-bold uppercase text-faint">
+                  Users
+                </h2>
+              </div>
+              {status === 'loading' ? <LoadingState /> : null}
+              {status === 'error' ? (
+                <ErrorState
+                  onRetry={() => {
+                    void retry()
+                  }}
+                />
+              ) : null}
+              {status === 'success' ? (
+                <UserList
+                  users={filteredUsers}
+                  selectedId={selectedId}
+                  onSelect={(user) => setSelectedId(user.id)}
+                />
+              ) : null}
+            </section>
 
-          <UserDetails user={selectedUser} sectionRef={detailsRef} />
-        </div>
+            <UserDetails user={selectedUser} sectionRef={detailsRef} />
+          </div>
+        </main>
       </div>
     </div>
   )
